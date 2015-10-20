@@ -1,0 +1,21 @@
+<head>
+  <title>Daycare Centers</title>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>Daycare Centers</h1>
+    </header>
+
+    <ol>
+      {{#each daycareCenters}}
+        {{> daycareCenter}}
+      {{/each}}
+    </ol>
+  </div>
+</body>
+
+<template name="daycareCenter">
+  <li>{{text}}</li>
+</template>
