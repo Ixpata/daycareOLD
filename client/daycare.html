@@ -8,8 +8,11 @@
       <h1>Daycare Centers</h1>
 
       <form class="new-daycare-center">
-        <input type="text" name="text" placeholder="Type to add a new daycare center" />
+        <input type="text" name="name" placeholder="Name of daycare center" />
+        <input type="text" name="address" placeholder="Address" />
+        <input type="submit" value="Add Daycare Center" />
       </form>
+
     </header>
 
     <ol>
@@ -18,8 +21,13 @@
       {{/each}}
     </ol>
   </div>
+
+  <div class="map-container">
+    {{> googleMap name="exampleMap" options=exampleMapOptions}}
+  </div>
+  
 </body>
 
 <template name="daycareCenter">
-  <li>{{text}}</li>
+  <li>{{name}}, {{address}}</li>
 </template>
