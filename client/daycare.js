@@ -1,11 +1,24 @@
 DaycareCenters = new Mongo.Collection("daycareCenters");
 
+Template.map.onCreated(function() {
+  GoogleMaps.ready('map', function(map) {
+    var latLng = Geolocation.latLng();
+
+    var marker = new google.maps.Marker({
+      position: new google.maps.LatLng(latLng.lat, latLng.lng),
+      map: map.instance
+    });
+  });
+});
+
 Template.body.helpers({
   daycareCenters: function () {
     return DaycareCenters.find({}, {sort: {createdAt: -1}});
-  },
+  }
+});
 
-  exampleMapOptions: function() {
+Template.map.helpers({
+  mapOptions: function() {
     // Make sure the maps API has loaded
     var latLng = Geolocation.latLng();
     if (GoogleMaps.loaded() && latLng) {

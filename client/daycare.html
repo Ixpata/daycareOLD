@@ -22,12 +22,17 @@
     </ol>
   </div>
 
-  <div class="map-container">
-    {{> googleMap name="exampleMap" options=exampleMapOptions}}
-  </div>
-  
+  <h1>Geolocation example</h1>
+    {{> map}}
+
 </body>
 
+<template name="map">
+<div class="map-container">
+    {{> googleMap name="map" options=mapOptions}}
+</div>
+</template>
+
 <template name="daycareCenter">
-  <li>{{name}}, {{address}}</li>
+<li>{{name}}, {{address}}</li>
 </template>
