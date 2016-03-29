@@ -1,20 +1,18 @@
 Template.map.onCreated(function() {
   GoogleMaps.ready('map', function(map) {
-    var latLng = DaycareCenters.findOne("G8KbDwRmwdfsfdXii").latLng;
-    var latLng0 = Geolocation.latLng();
+    var daycareCenterOne = DaycareCenters.findOne("muJPffNhaGGRmm848");
 
-    var contentString = '<p><b>Uluru</b>';
-
-    var infowindow = new google.maps.InfoWindow({
-      content: contentString
+    var infoWindow = new google.maps.InfoWindow({
+      //content: daycareCenterOne.content
+      content: Blaze.toHTMLWithData(Template.infoWindow, daycareCenterOne)
     });
 
     var marker0 = new google.maps.Marker({
-      position: latLng0,
+      position: Geolocation.latLng(),
       map: map.instance
     });
     var marker1 = new google.maps.Marker({
-      position: latLng,
+      position: daycareCenterOne.latLng,
       map: map.instance
     });
 
@@ -27,13 +25,13 @@ Template.map.onCreated(function() {
 
     map.instance.fitBounds(bounds);
 
-    marker0.addListener('click', function() {
+    /*   marker0.addListener('click', function() {
       infowindow.open(map.instance, marker0);
-    });
+    });     */
     marker1.addListener('click', function() {
-      infowindow.open(map.instance, marker);
+      infoWindow.open(map.instance, marker1);
     });
-    // marker0.setMap(map.instance);
+
   });
 
 });
