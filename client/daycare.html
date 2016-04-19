@@ -24,7 +24,7 @@
 
   <h1>Geolocation example</h1>
     {{> map}}
-
+    {{> upload}}
 </body>
 
 <template name="map">
@@ -40,4 +40,6 @@
 <template name="infoWindow">
   <h3>{{name}}</h3>
   {{address}}
+  <br>
+  <a href="{{url}}" target="_blank">{{url}}</a>
 </template>
