@@ -1,6 +1,6 @@
 Template.map.onCreated(function() {
   GoogleMaps.ready('map', function(map) {
-    var daycareCenterOne = DaycareCenters.findOne("muJPffNhaGGRmm848");
+    var daycareCenterOne = DaycareCenters.findOne({_id: DaycareCenters.findOne()._id});
 
     var infoWindow = new google.maps.InfoWindow({
       //content: daycareCenterOne.content
@@ -39,6 +39,12 @@ Template.map.onCreated(function() {
 Template.body.helpers({
   daycareCenters: function () {
     return DaycareCenters.find({}, {sort: {createdAt: -1}});
+  }
+});
+
+Template.daycareCenter.helpers({
+  fullAddress: function () {
+    return this.address + ', ' + this.city + ', ' + this.state + ' ' + this.zipCode;
   }
 });
 
