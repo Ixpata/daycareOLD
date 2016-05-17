@@ -44,7 +44,7 @@ Template.body.helpers({
 
 Template.daycareCenter.helpers({
   fullAddress: function () {
-    return this.address + ', ' + this.city + ', ' + this.state + ' ' + this.zipCode;
+    return Modules.lib.fullAddress(this);
   }
 });
 
