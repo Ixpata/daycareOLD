@@ -42,12 +42,6 @@ Template.body.helpers({
   }
 });
 
-Template.daycareCenter.helpers({
-  fullAddress: function () {
-    return Modules.lib.fullAddress(this);
-  }
-});
-
 Template.map.helpers({
   mapOptions: function() {
     // Make sure the maps API has loaded

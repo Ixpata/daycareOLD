@@ -26,3 +26,4 @@ themeteorchef:bert
 reactive-var
 check
 aldeed:geocoder
+dburles:collection-helpers

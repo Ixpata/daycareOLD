@@ -10,7 +10,7 @@ Meteor.methods({
           exists = DaycareCenters.findOne( { programId: item.programId } );
 
       if ( !exists ) {
-        var dayCareLatLng = geo.geocode(Modules.lib.fullAddress(item));
+        var dayCareLatLng = geo.geocode(item.fullAddress());
         DaycareCenters.insert( item, function(error, result) {
           DaycareCenters.update(result, {$set: {latLng: {
              lat: dayCareLatLng[0].latitude,
