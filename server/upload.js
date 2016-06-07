@@ -10,11 +10,11 @@ Meteor.methods({
           exists = DaycareCenters.findOne( { programId: item.programId } );
 
       if ( !exists ) {
-        var dayCareLatLng = geo.geocode(item.fullAddress());
+        var dayCareLatLng = geo.geocode(item.address + ', ' + item.city + ', ' + item.state + ' ' + item.zipCode);
         DaycareCenters.insert( item, function(error, result) {
-          DaycareCenters.update(result, {$set: {latLng: {
-             lat: dayCareLatLng[0].latitude,
-             lng: dayCareLatLng[0].longitude}}})
+          DaycareCenters.update(result, {$set: {geometry: {
+            type: "Point",
+            coordinates: [dayCareLatLng[0].latitude, dayCareLatLng[0].longitude]}}})
         } );
       } else {
         console.warn( 'Rejected. This item already exists.' );

@@ -12,7 +12,7 @@ Template.map.onCreated(function() {
       map: map.instance
     });
     var marker1 = new google.maps.Marker({
-      position: daycareCenterOne.latLng,
+      position: daycareCenterOne.latLng(),
       map: map.instance
     });
 
