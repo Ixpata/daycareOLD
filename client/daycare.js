@@ -1,40 +1,42 @@
 Template.map.onCreated(function() {
   GoogleMaps.ready('map', function(map) {
-    var daycareCenterOne = DaycareCenters.findOne({_id: DaycareCenters.findOne()._id});
+   var daycareCenters = DaycareCenters.find({
+   location: { $near: { $geometry: { type: "Point", coordinates: [ 38.9, -77.1 ] }, $maxDistance: 5000 } } } ).fetch();
+    var infoWindow = new google.maps.InfoWindow();
 
-    var infoWindow = new google.maps.InfoWindow({
-      //content: daycareCenterOne.content
-      content: Blaze.toHTMLWithData(Template.infoWindow, daycareCenterOne)
-    });
+    var markerArray = [];
+    for (var i = 0; i < daycareCenters.length; i++) {
+      var marker = new google.maps.Marker({
+        position: daycareCenters[i].latLng(),
+        map: map.instance
+      });
+      markerArray.push(marker);
+    }
 
     var marker0 = new google.maps.Marker({
       position: Geolocation.latLng(),
       map: map.instance
     });
-    var marker1 = new google.maps.Marker({
-      position: daycareCenterOne.latLng(),
-      map: map.instance
-    });
-
-    var markers = [marker0, marker1];
+    markerArray.push(marker0);
 
     var bounds = new google.maps.LatLngBounds();
-    for (var i = 0; i < markers.length; i++) {
-      bounds.extend(markers[i].getPosition());
+    for (var i = 0; i < markerArray.length; i++) {
+      bounds.extend(markerArray[i].getPosition());
     }
-
     map.instance.fitBounds(bounds);
 
-    /*   marker0.addListener('click', function() {
-      infowindow.open(map.instance, marker0);
-    });     */
-    marker1.addListener('click', function() {
-      infoWindow.open(map.instance, marker1);
-    });
-
+    for (var i = 0; i < daycareCenters.length; i++) {
+      attachInstructionText(infoWindow, markerArray[i], Blaze.toHTMLWithData(Template.infoWindow, daycareCenters[i]), map);
+    }
   });
-
 });
+
+function attachInstructionText(infoWindow, marker, text, map) {
+  google.maps.event.addListener(marker, 'click', function() {
+    infoWindow.setContent(text);
+    infoWindow.open(map, marker);
+  });
+}
 
 Template.body.helpers({
   daycareCenters: function () {
